@@ -1,0 +1,102 @@
+.topline {
+    height: 60px;
+    box-shadow: 5px 0px 10px 0px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.item {
+    display: flex;
+    list-style: none;
+}
+
+.link {
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-grid;
+    place-items: center;
+}
+
+.profile {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    color: #304269;
+}
+
+.icon {
+    font-size: 30px;
+    color: #304269;
+}
+
+.account {
+    font-size: 30px;
+    margin-right: 5px;
+    color: #304269;
+}
+
+.message {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 10px 0px #a6dbf5;
+    background: #fff;
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+    width: 400px;
+    z-index: 11;
+}
+
+.active {
+    display: block;
+}
+
+.text {
+    font-size: 20px;
+    color: #304269;
+    margin-bottom: 20px;
+}
+
+.submit {
+    font-weight: bold;
+    display: inline-block;
+    background: #D9E8F5;
+    border-radius: 5px;
+    padding: 15px 30px;
+    text-decoration: none;
+    color: #304269;
+    transition: .3s;
+    margin-right: 10px;
+}
+
+.submit:nth-child(3) {
+    margin-right: 0;
+}
+
+.submit:hover {
+    background: #D9E8F5;
+}
+
+@media screen and (max-width: 500px) {
+    .message {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .text {
+        font-size: 18px;
+    }
+    .message {
+        padding: 60px 40px;
+    }
+    .submit {
+        padding: 13px 25px;
+    }
+}

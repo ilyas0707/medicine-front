@@ -1,0 +1,44 @@
+.heading {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.search {
+    margin-bottom: 30px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 18px;
+    -webkit-user-select: text;
+    user-select: text;
+    outline: none;
+    -webkit-appearance: none;
+    -webkit-border: none;
+    border: none;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    border-bottom: 2px solid #304269;
+    color: #304269;
+    z-index: 1;
+}
+
+.input:focus::placeholder {
+    color: #fff;
+}
+
+.link {
+    color: #000;
+}
+
+.wrapper {
+    overflow-x: scroll;
+    margin-bottom: 30px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
