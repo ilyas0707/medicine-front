@@ -6,6 +6,7 @@ import { Profile } from '../../subpages/Profile/Profile'
 import { CreateUser } from '../../subpages/CreateUser/CreateUser'
 import { ChangePassword } from '../../subpages/ChangePassword/ChangePassword'
 import { Patients } from '../../subpages/Patients/Patients'
+import { PatientFragment } from '../../fragments/PatientFragment'
 
 export const Scene = () => {
     return (
@@ -23,6 +24,7 @@ export const Scene = () => {
                 <Route path="/panel/patients" exact>
                     <Patients />
                 </Route>
+                <PatientFragment />
             </Switch>
         </div>
     )

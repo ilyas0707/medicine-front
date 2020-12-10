@@ -37,16 +37,16 @@ export const Patients = () => {
             </div>
             <div className={Styles.block}>
                 <div className={Styles.wrapper}>
-                    <table cellPadding="10" border="0" bordercolor="#304269" className={Styles.table}>
+                    <table cellPadding="15" border="0" bordercolor="#304269" className={Styles.table}>
                         <thead>
                             <tr><th>Полное имя</th><th>Дата рождения</th><th>Номер телефона</th><th>Амб. карта</th></tr>
                         </thead>
                         <tbody>
                             {
-                                patientsFiltered.map(({fullname, birthdate, phoneNumber, cardNumber}, i) => {
+                                patientsFiltered.map(({ fullname, birthdate, phoneNumber, cardNumber }, i) => {
                                     return(
                                         <tr key={ i }>
-                                            <td><NavLink to={`/panel/${cardNumber}`} className={Styles.link}>{ fullname }</NavLink></td>
+                                            <td><NavLink to={`/panel/patients/${cardNumber}`} className={Styles.link}>{ fullname }</NavLink></td>
                                             <td width="1%">{ birthdate }</td>
                                             <td width="1%">{ phoneNumber }</td>
                                             <td width="1%">{ cardNumber }</td>
