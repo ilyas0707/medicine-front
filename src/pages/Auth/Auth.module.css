@@ -101,22 +101,6 @@
     color: #999;
 }
 
-@keyframes loading {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.loading {
-    display: inline-block;
-    border: 10px solid #304269;
-    border-top: 10px solid #D9E8F5;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: loading .5s linear infinite;
-    cursor: default;
-}
-
 .dn {
     display: none;
 }
@@ -129,7 +113,7 @@
     }
     .block {
         width: 100%;
-        padding: 60px 40px;
+        padding: 40px;
         box-sizing: border-box;
     }
 }

@@ -89,7 +89,7 @@ export const Auth = () => {
                             onChange={changeHandler} />
                         <label htmlFor="password" className={Styles.label}>Пароль</label>
                     </div>
-                    <div className={loading ? Styles.loading : Styles.buttons}>
+                    <div className={loading ? 'loading' : Styles.buttons}>
                         <a 
                             href="/" 
                             className={loading ? 

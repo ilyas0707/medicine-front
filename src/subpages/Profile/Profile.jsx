@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../hooks/auth.hook'
 import { useGet } from '../../hooks/get.hook'
 import { useUsers } from '../../hooks/users.hook'
+import Fuse from "fuse.js"
 
 import Styles from './Profile.module.css'
 
@@ -15,12 +16,20 @@ export const Profile = () => {
     const { usersData } = useUsers(data.object)
     const user = profile.object
 
-    console.log(usersData);
+    const [form, setForm] = useState("")
 
-    if (loading) {
-        return (
-            <div className={Styles.loading}></div>
-        )
+    const fuse = new Fuse(usersData, {
+        keys: [
+            "fullname"
+        ]
+    })
+
+    const results = fuse.search(form)
+    const usersFiltered = form ? results.map(result => result.item) : usersData ? usersData : []
+
+    const changeHandler = ({ currentTarget = {} }) => {
+        const { value } = currentTarget
+        setForm(value)
     }
 
     return (
@@ -62,30 +71,31 @@ export const Profile = () => {
                     </NavLink>
                 </div>
             </div>
-            <div className={Styles.wrapper}>
-                    <table cellPadding="10" border="0" bordercolor="#304269" className={Styles.table}>
-                        <caption>Пользователи</caption>
-                        <thead>
-                            <tr><th>Имя</th><th>Логин</th><th>Роль</th><th></th></tr>
-                        </thead>
-                        <tbody>
-                            {
-                                usersData ?
-                                usersData.map(({ id, fullname, username, role }, i) => {
-                                    return username === 'god' ? null :
-                                    <tr key={ i }>
-                                        <td>{ fullname }</td>
-                                        <td>{ username }</td>
-                                        <td>{ role }</td>
-                                        <td width="1%">
-                                            <button className={Styles.deleteButton} type="submit" onClick={() => {console.log('delete')}}><i className={`material-icons ${Styles.delete}`}>delete</i></button>
-                                        </td>
-                                    </tr>
-                                }) : null
-                            }
-                        </tbody>
-                    </table>
+            {
+                loading ?
+                <div className="loading"></div> :
+                <div className={Styles.users}>
+                    <h3 className={Styles.heading}>Пользователи</h3>
+                    <div className={Styles.search}>
+                        <input type="text" className={Styles.input} name="fullname" onChange={changeHandler} placeholder="Поиск..." autoComplete="off" />
+                    </div>
+                    <div className={Styles.block}>
+                        {
+                            usersFiltered.map(({ id, fullname, username, role }, i) => {
+                                return username === 'god' ? null :
+                                <div className={Styles.user} key={ i }>
+                                    <div className={Styles.userInfo}>
+                                        <span><b>Полное имя:</b> { fullname }</span>
+                                        <span><b>Логин:</b> { username }</span>
+                                        <span><b>Роль:</b> { role }</span>
+                                    </div>
+                                    <button className={Styles.deleteButton} type="submit" onClick={() => {console.log(`delete ${ id }`)}}><i className={`material-icons ${Styles.delete}`}>delete</i></button>
+                                </div>
+                            })
+                        }
+                    </div>
                 </div>
+            }
         </>
     )
 }

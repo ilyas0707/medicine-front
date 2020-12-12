@@ -29,16 +29,70 @@
     color: #fff;
 }
 
+.block {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.patient {
+    width: 32%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    background: #D9E8F5;
+    color: #304269;
+    border-radius: 10px;
+    margin-bottom: 2%;
+    margin-right: 2%;
+}
+
+.patient:nth-child(3n) {
+    margin-right: 0;
+} 
+
 .link {
     color: #000;
+    display: flex;
+    flex-direction: column;
 }
 
-.wrapper {
-    overflow-x: scroll;
-    margin-bottom: 30px;
+.link > span {
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
+.flag {
+    background: #304269;
+    color: #fff;
+    transform: translateY(-20px);
+    padding: 30px 10px 10px 10px;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+    .patient {
+        width: 49%;
+    }
+    .patient:nth-child(3n) {
+        margin-right: 2%;
+    }
+    
+    .patient:nth-child(2n) {
+        margin-right: 0;
+    } 
+}
+
+@media screen and (max-width: 700px) {
+    .patient {
+        width: 100%;
+        margin-right: 0;
+    }
+    .patient:nth-child(3n) {
+        margin-right: 0;
+    }
+    
+    .patient:nth-child(2n) {
+        margin-right: 0;
+    }
 }

@@ -36,27 +36,20 @@ export const Patients = () => {
                 <input type="text" className={Styles.input} name="fullname" onChange={changeHandler} placeholder="Поиск..." autoComplete="off" />
             </div>
             <div className={Styles.block}>
-                <div className={Styles.wrapper}>
-                    <table cellPadding="15" border="0" bordercolor="#304269" className={Styles.table}>
-                        <thead>
-                            <tr><th>Полное имя</th><th>Дата рождения</th><th>Номер телефона</th><th>Амб. карта</th></tr>
-                        </thead>
-                        <tbody>
-                            {
-                                patientsFiltered.map(({ fullname, birthdate, phoneNumber, cardNumber }, i) => {
-                                    return(
-                                        <tr key={ i }>
-                                            <td><NavLink to={`/panel/patients/${cardNumber}`} className={Styles.link}>{ fullname }</NavLink></td>
-                                            <td width="1%">{ birthdate }</td>
-                                            <td width="1%">{ phoneNumber }</td>
-                                            <td width="1%">{ cardNumber }</td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                {
+                    patientsFiltered.map(({ fullname, birthdate, phoneNumber, cardNumber }, i) => {
+                        return (
+                            <NavLink key={ i } to={`/panel/patients/${cardNumber}`} className={Styles.patient}>
+                                <div className={Styles.link}>
+                                    <span><b>Полное имя:</b> { fullname }</span>
+                                    <span><b>Дата рождения:</b> { birthdate }</span>
+                                    <span><b>Номер телефона:</b> { phoneNumber }</span>
+                                </div>
+                                <span className={Styles.flag}>{ cardNumber }</span>
+                            </NavLink>
+                        )
+                    })
+                }
             </div>
         </div>
     )
