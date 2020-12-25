@@ -40,7 +40,7 @@
     box-sizing: border-box;
     width: 100%;
     padding: 15px 15px 10px 15px;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
     font-size: 20px;
     z-index: 1;
 }
@@ -63,7 +63,7 @@
     transform: translateY(-50%);
     cursor: text;
     transition: all .5s;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
     opacity: 0;
 }
 
@@ -87,8 +87,8 @@
     font-size: 18px;
     text-decoration: none;
     padding: 15px 30px;
-    background: #D9E8F5;
-    color: #304269;
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
     border-radius: 6px;
 }
 

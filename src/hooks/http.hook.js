@@ -25,14 +25,14 @@ export const useHttp = () => {
             return data
         } catch (e) {
             setLoading(false)
-            setError(e.message)
+            setError(e.messageRU)
             throw e
         }
     }, [])
 
     const clearError = useCallback(() => setError(null), [])
 
-    const API_URL = `https://medicine-card.herokuapp.com`
+    const API_URL = `https://medicine-back.herokuapp.com/`
 
     return { loading, request, error, clearError, API_URL }
 }

@@ -1,0 +1,15 @@
+export const locale = {
+    allDay: 'На весь день',
+    detailsLabel: 'Детали',
+    allDayLabel: 'На весь день',
+    titleLabel: 'Заголовок',
+    repeatLabel: 'Повтор',
+    moreInformationLabel: 'Дополнительная информация',
+    notesLabel: 'Заметки',
+    commitCommand: 'Сохранить',
+    discardButton: 'Отменить',
+    deleteButton: 'Удалить',
+    cancelButton: 'Выйти',
+    confirmDeleteMessage: 'Вы уверены, что хотите удалить эту запись?',
+    confirmCancelMessage: 'Отменить несохраненные изменения?',
+}

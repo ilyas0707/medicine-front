@@ -1,6 +1,18 @@
 .heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 30px;
     margin-bottom: 30px;
+}
+
+.button {
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+    display: inline-flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .search {
@@ -8,25 +20,27 @@
 }
 
 .input {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    font-size: 18px;
-    -webkit-user-select: text;
-    user-select: text;
     outline: none;
     -webkit-appearance: none;
     -webkit-border: none;
     border: none;
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-    border-bottom: 2px solid #304269;
-    color: #304269;
-    z-index: 1;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #eee;
+    box-sizing: border-box;
+    box-shadow: inset 0px 0px 5px 0px#ccc;
+    width: 100%;
+    padding: 15px;
+    composes: textColor from "../../App.module.css";
+    font-size: 16px;
+}
+
+.input::placeholder {
+    color: #999;
 }
 
 .input:focus::placeholder {
-    color: #fff;
+    color: #eee;
 }
 
 .block {
@@ -40,8 +54,8 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px;
-    background: #D9E8F5;
-    color: #304269;
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
     border-radius: 10px;
     margin-bottom: 2%;
     margin-right: 2%;
@@ -87,6 +101,7 @@
     .patient {
         width: 100%;
         margin-right: 0;
+        margin-bottom: 20px;
     }
     .patient:nth-child(3n) {
         margin-right: 0;

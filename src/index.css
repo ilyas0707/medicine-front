@@ -26,38 +26,6 @@ a {
     text-decoration: none;
 }
 
-thead > tr > th {
-    box-sizing: border-box;
-    padding: 15px;
-}
-
-thead > tr > th:first-child {
-    border-top-left-radius: 15px;
-}
-
-thead > tr > th:last-child {
-    border-top-right-radius: 15px;
-}
-
-th {
-    background: #D9E8F5;
-    color: #304269;
-    padding: 10px;
-    font-size: 20px;
-}
-
-tbody > tr > td:first-child {
-    text-align: left;
-}
-
-td {
-    text-align: center;
-}
-
-tr:nth-child(even) {
-    background: #eee;
-}
-
 @keyframes loading {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -65,8 +33,9 @@ tr:nth-child(even) {
 
 .loading {
     display: inline-block;
+    font-size: 0;
     border: 10px solid #304269;
-    border-top: 10px solid #D9E8F5;
+    border-top: 10px solid #99ffdd;
     border-radius: 50%;
     width: 50px;
     height: 50px;

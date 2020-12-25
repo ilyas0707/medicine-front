@@ -1,4 +1,44 @@
 .heading {
-    font-size: 30px;
     margin-bottom: 30px;
+    font-size: 30px;
 }
+
+.block {
+    display: none;
+    padding-top: 30px;
+}
+
+.block.active {
+    display: block;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #304269;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.tab {
+    width: auto;
+    display: inline-block;
+    text-align: center;
+    composes: textColor from "../../App.module.css";
+    padding: 15px 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.selected {
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+}
+
+/* @media screen and (max-width: 430px) {
+    .tabs {
+        flex-wrap: wrap;
+    }
+    .tab {
+        width: 100%;
+    }
+} */

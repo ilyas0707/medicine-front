@@ -24,18 +24,18 @@
     font-weight: bold;
     display: flex;
     align-items: center;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
 }
 
 .icon {
     font-size: 30px;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
 }
 
 .account {
     font-size: 30px;
     margin-right: 5px;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
 }
 
 .message {
@@ -44,7 +44,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 10px 0px #a6dbf5;
     background: #fff;
     padding: 40px;
     text-align: center;
@@ -59,28 +58,24 @@
 
 .text {
     font-size: 20px;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
     margin-bottom: 20px;
 }
 
 .submit {
     font-weight: bold;
     display: inline-block;
-    background: #D9E8F5;
+    composes: backgroundColor from "../../App.module.css";
     border-radius: 5px;
     padding: 15px 30px;
     text-decoration: none;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
     transition: .3s;
     margin-right: 10px;
 }
 
 .submit:nth-child(3) {
     margin-right: 0;
-}
-
-.submit:hover {
-    background: #D9E8F5;
 }
 
 @media screen and (max-width: 500px) {

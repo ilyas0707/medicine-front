@@ -4,7 +4,7 @@
 
 .navbar {
     box-sizing: border-box;
-    background: #D9E8F5;
+    composes: backgroundColor from "../../App.module.css";
     min-width: 310px;
     margin-left: -250px;
     height: 100vh;
@@ -25,7 +25,7 @@
     margin-left: 10px;
     display: block;
     font-size: 28px;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
     text-decoration: none;
 }
 
@@ -34,7 +34,7 @@
     width: 60px;
     height: 60px;
     box-sizing: border-box;
-    background: #D9E8F5;
+    composes: backgroundColor from "../../App.module.css";
     text-decoration: none;
     transition: .3s;
     text-align: center;
@@ -45,11 +45,7 @@
 }
 
 .ham:hover {
-    background: #304269;
-}
-
-.ham:hover .line {
-    background: #D9E8F5;
+    background: #85dabd;
 }
 
 .line {
@@ -96,20 +92,20 @@
     overflow-x: hidden;
 }
 
-.item > a {
+.link {
     width: 100%;
     display: flex;
     align-items: center;
     box-sizing: border-box;
     height: 60px;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
     font-size: 16px;
     transform: translateX(250px);
     transition: all .3s;
 }
 
-.item > a:hover {
-    background: #b3cee6;
+.link:hover {
+    background: #85dabd;
 }
 
 .menu.open > .item > a {
@@ -117,7 +113,7 @@
 }
 
 .active {
-    background: #b3cee6;
+    background: #85dabd;
 }
 
 .icon {
@@ -127,11 +123,11 @@
     place-items: center;
     margin-right: 10px;
     font-size: 30px;
-    color: #304269;
+    composes: textColor from "../../App.module.css";
 }
 
 .text {
-    color: #304269;
+    composes: textColor from "../../App.module.css";
 }
 
 .title {
@@ -177,7 +173,7 @@
         width: 33.33%;
         height: 70px;
     }
-    .item > a {
+    .link {
         height: 70px;
         display: grid;
         place-items: center;

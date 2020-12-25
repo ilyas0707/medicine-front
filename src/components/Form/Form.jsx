@@ -9,15 +9,15 @@ import { useSuccess } from '../../hooks/success.hook'
 import { useError } from '../../hooks/error.hook'
 import { useHistory } from 'react-router-dom'
 
-export const Form = ({ component, data, select, url }) => {
+export const Form = ({ component, data, url, set }) => {
     toast.configure({
         position: 'top-center',
         autoClose: 3000,
-        draggable: true
+        draggable: true,
     })
 
     const { code } = useAuth()
-    const { request, API_URL } = useHttp()
+    const { request, loading, API_URL } = useHttp()
     const successMessage = useSuccess()
     const errorMessage = useError()
     const [form, setForm] = useState({})
@@ -25,75 +25,121 @@ export const Form = ({ component, data, select, url }) => {
 
     const postHandler = async () => {
         try {
-            const data = await request(`${API_URL}/${url}`, "POST", {...form}, {
-                Authorization: `Basic ${code.hashed}`
-            })
-            if (data.successful === false) {
-                errorMessage("Поля не должны быть пустыми!")
+            if (component === 'createUser') {
+                delete form['delete']
+                delete form.user['role']
+            } else if (component === 'createPatientCard') {
+                delete form.patient['delete']
+                delete form.address['delete']
+            }
+            const posted = await request(
+                `${API_URL}${url}`,
+                'POST',
+                { ...form },
+                {
+                    Authorization: `Basic ${code.hashed}`,
+                }
+            )
+            if (posted.successful === false) {
+                errorMessage(posted.messageRU)
             } else {
-                successMessage(data.message)
+                successMessage(posted.messageRU)
             }
             history.push('/')
             if (component === 'createUser') {
                 history.push('panel/profile/createUser')
+            } else if (component === 'createPatientCard') {
+                history.push('panel/patients/patientCreate')
             }
         } catch (e) {
-            errorMessage("Поля не должны быть пустыми!")
+            errorMessage(e.messageRU)
         }
     }
 
-    const changeHandler = e => {
-        setForm({ 
-            ...form, [e.target.name]: e.target.value
-        })
+    const changeHandler = (e) => {
+        if (component === 'createUser') {
+            setForm(set(form, e.target.name, e.target.value))
+        } else if (component === 'createPatientCard') {
+            setForm(set(form, e.target.name, e.target.value))
+        }
     }
 
     return (
         <div className={Styles.form}>
             <div className={Styles.block}>
-                {
-                    select ?
-                    select.map(({name, options}, i) => {
+                {data
+                    ? data.map(element => {
                         return (
-                            <div key={ i } className={`${Styles.item} ${Styles.relative}`}>
-                                <select className={Styles.select} name={ name } onChange={changeHandler}>
-                                    {
-                                        options.map((element) => {
+                            element.map(({ type, name, label, select }, i) => {
+                                if (select) {
+                                    return (
+                                        select.map(({ name, options }, i) => {
                                             return (
-                                                element ?
-                                                element.map(({label, id}, i) => {
-                                                    return label === '' ? null :
-                                                    <option key={ i } value={ id }>{ label }</option>
-                                                }) : ''
+                                                <div
+                                                    key={i}
+                                                    className={`${Styles.item} ${Styles.relative}`}
+                                                >
+                                                    <select
+                                                        className={Styles.select}
+                                                        name={name}
+                                                        onChange={changeHandler}
+                                                    >
+                                                        {options.map((element) => {
+                                                            return element
+                                                                ? element.map(
+                                                                      ({ label, id }, i) => {
+                                                                          return label ===
+                                                                              '' ? null : (
+                                                                              <option
+                                                                                  key={i}
+                                                                                  value={id}
+                                                                              >
+                                                                                  {label}
+                                                                              </option>
+                                                                          )
+                                                                      }
+                                                                  )
+                                                                : ''
+                                                        })}
+                                                    </select>
+                                                    <i
+                                                        className={`material-icons ${Styles.icon}`}
+                                                    >
+                                                        play_arrow
+                                                    </i>
+                                                </div>
                                             )
                                         })
-                                    }
-                                </select>
-                                <i className={`material-icons ${Styles.icon}`}>play_arrow</i>
-                            </div>
+                                    )
+                                }
+                                return (
+                                    <div key={i} className={Styles.item}>
+                                        <input
+                                            type={type}
+                                            className={Styles.input}
+                                            name={name}
+                                            placeholder={label}
+                                            autoComplete="off"
+                                            onChange={changeHandler}
+                                        />
+                                    </div>
+                                )
+                            })
                         )
-                    }) : ''
-                }
-                {
-                    data ?
-                    data.map(({type, name, label}, i) => {
-                        return (
-                            <div key={ i } className={Styles.item}>
-                                <input 
-                                    type={ type }
-                                    className={Styles.input}
-                                    name={ name }
-                                    placeholder={ label }
-                                    autoComplete="off"
-                                    
-                                    onChange={changeHandler} />
-                            </div>
-                        )
-                    }) : ''
-                }
+                    })
+                    : ''}
+                {/* {select
+                    ? 
+                    : ''} */}
             </div>
             <div className={Styles.button}>
-                <button type="submit" onClick={() => {postHandler()}} className={Styles.submit}>Создать</button>
+                <button
+                    type="submit"
+                    onClick={() => {postHandler()}}
+                    className={loading ? 'loading' : Styles.submit}
+                >
+                    Создать
+                </button>
             </div>
         </div>
     )

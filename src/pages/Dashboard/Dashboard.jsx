@@ -29,7 +29,7 @@ export const Dashboard = () => {
     const items = links.map(({title, link, icon}, i) => {
         return (
             <li key={ i } className={Styles.item}>
-                <NavLink activeClassName={Styles.active} to={`/panel/${ link }`}>
+                <NavLink className={Styles.link} activeClassName={Styles.active} to={`/panel/${ link }`}>
                     <i className={`material-icons ${Styles.icon}`}>{ icon }</i>
                     <span className={Styles.text}>{ title }</span>
                 </NavLink>
@@ -50,7 +50,7 @@ export const Dashboard = () => {
                         </a>
                     </div>
                 </div>
-                <ul className={`${Styles.menu} ${open ? Styles.open : ""}`}>
+                <ul className={`${Styles.menu} ${open ? Styles.open : ''}`}>
                     { items }
                 </ul>
             </nav>

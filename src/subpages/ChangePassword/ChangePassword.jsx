@@ -11,80 +11,100 @@ import { AuthContext } from '../../context/AuthContext'
 
 export const ChangePassword = () => {
     toast.configure({
-        position: "top-center",
+        position: 'top-center',
         autoClose: 2000,
-        draggable: true
+        draggable: true,
     })
 
     const { code } = useAuth()
     const auth = useContext(AuthContext)
-    const { request, API_URL } = useHttp()
+    const { request, loading, API_URL } = useHttp()
     const history = useHistory()
     const successMessage = useSuccess()
     const errorMessage = useError()
     const [password, setPassword] = useState({
-        password: ''
+        password: '',
     })
     const [form, setForm] = useState({
-        newPassword: ''
+        newPassword: '',
     })
 
     const changePassword = async () => {
         if (password.password !== '' && form.newPassword !== '') {
             if (password.password === form.newPassword) {
                 try {
-                    const data = await request(`${API_URL}/api/login/changePassword`, "POST", {...form}, {
-                        Authorization: `Basic ${code.hashed}`
-                    })
-                    successMessage(data.message)
+                    const data = await request(
+                        `${API_URL}api/changePassword`,
+                        'POST',
+                        { ...form },
+                        {
+                            Authorization: `Basic ${code.hashed}`,
+                        }
+                    )
+                    successMessage(data.messageRU)
                     auth.logout()
-                    history.push("/")
+                    history.push('/')
                 } catch (e) {
-                    errorMessage("Ошибка!")
+                    errorMessage(e.messageRU)
                 }
             } else {
-                errorMessage("Пароли не совпадают!")
+                errorMessage('Пароли не совпадают!')
             }
         } else {
-            errorMessage("Поля не должны быть пустыми!")
+            errorMessage('Поля не должны быть пустыми!')
         }
     }
 
-    const passwordHandler = e => {     
-        setPassword({ 
-            ...form, [e.target.name]: e.target.value
+    const passwordHandler = (e) => {
+        setPassword({
+            ...form,
+            [e.target.name]: e.target.value,
         })
     }
 
-    const checkPasswordHandler = e => {     
-        setForm({ 
-            ...form, [e.target.name]: e.target.value
+    const checkPasswordHandler = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value,
         })
     }
-    
+
     return (
         <div className={Styles.form}>
             <form className={Styles.block}>
                 <h3 className={Styles.heading}>Изменить пароль</h3>
                 <div className={Styles.item}>
-                    <input 
+                    <input
                         type="password"
                         className={Styles.input}
                         name="password"
                         placeholder="Новый пароль"
                         autoComplete="off"
-                        onChange={passwordHandler} />
+                        onChange={passwordHandler}
+                    />
                 </div>
                 <div className={Styles.item}>
-                    <input 
+                    <input
                         type="password"
                         className={Styles.input}
                         name="newPassword"
                         placeholder="Подтвердить пароль"
                         autoComplete="off"
-                        onChange={checkPasswordHandler} />
+                        onChange={checkPasswordHandler}
+                    />
                 </div>
-                <button type="submit" onClick={() => {changePassword()}} className={Styles.submit}>Изменить</button>
+                <div className={Styles.button}>
+                    <button
+                        type="submit"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            changePassword()
+                        }}
+                        className={loading ? 'loading' : Styles.submit}
+                    >
+                        Изменить
+                    </button>
+                </div>
             </form>
         </div>
     )

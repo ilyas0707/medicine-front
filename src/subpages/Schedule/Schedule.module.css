@@ -1,0 +1,9 @@
+.heading {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.paper {
+    min-height: calc(100vh - 225px);
+    height: calc(100vh - 225px);
+}

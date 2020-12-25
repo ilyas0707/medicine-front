@@ -23,3 +23,11 @@
     cursor: pointer;
     z-index: 10;
 }
+
+.backgroundColor {
+    background: #99ffdd;
+}
+
+.textColor {
+    color: #304269;
+}
