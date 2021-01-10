@@ -49,7 +49,7 @@ export const Form = ({ component, data, url, set }) => {
             if (component === 'createUser') {
                 history.push('panel/profile/createUser')
             } else if (component === 'createPatientCard') {
-                history.push('panel/patients/patientCreate')
+                history.push('panel/patients/create')
             }
         } catch (e) {
             errorMessage(e.messageRU)
