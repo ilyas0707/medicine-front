@@ -21,7 +21,7 @@ export const Dashboard = () => {
     const links = [
         { title: 'Расписание', link: 'schedule', icon: 'today' },
         { title: 'Пациенты', link: 'patients', icon: 'recent_actors' },
-        { title: 'Касса', link: 'cash', icon: 'payments' },
+        { title: 'Касса', link: 'payments', icon: 'payments' },
         { title: 'Телемедицина', link: 'telemedicine', icon: 'cast' },
         { title: 'Отчёт', link: 'analytics', icon: 'assessment' },
     ]

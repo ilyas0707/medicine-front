@@ -128,9 +128,6 @@ export const Form = ({ component, data, url, set }) => {
                         )
                     })
                     : ''}
-                {/* {select
-                    ? 
-                    : ''} */}
             </div>
             <div className={Styles.button}>
                 <button

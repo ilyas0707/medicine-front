@@ -9,6 +9,22 @@
     font-size: 24px;
     margin-top: 15px;
     margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button {
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+    display: inline-flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.icon {
+    font-size: 20px;
 }
 
 .item {

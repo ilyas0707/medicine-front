@@ -9,6 +9,7 @@ import { Schedule } from '../../subpages/Schedule/Schedule'
 import { Patients } from '../../subpages/Patients/Patients'
 import { PatientCardCreate } from '../../subpages/Patients/PatientCardCreate'
 import { PatientFragment } from '../../fragments/PatientFragment'
+import { Payments } from '../../subpages/Payments/Payments'
 
 export const Scene = () => {
     return (
@@ -29,8 +30,11 @@ export const Scene = () => {
                 <Route path="/panel/patients" exact>
                     <Patients />
                 </Route>
-                <Route path="/panel/patients/patientCreate" exact>
+                <Route path="/panel/patients/create" exact>
                     <PatientCardCreate />
+                </Route>
+                <Route path="/panel/payments" exact>
+                    <Payments />
                 </Route>
                 <PatientFragment />
             </Switch>

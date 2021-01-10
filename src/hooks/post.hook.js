@@ -8,7 +8,7 @@ import { useError } from "./error.hook"
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
-export const usePost = (component, url) => {
+export const usePost = (component) => {
     toast.configure({
         position: 'top-center',
         autoClose: 3000,
@@ -21,15 +21,9 @@ export const usePost = (component, url) => {
     const { loading, request, API_URL } = useHttp()
     const history = useHistory()
 
-    const postHandler = useCallback(async (data) => {
-        console.log(data);
-
-        const dataFactored = {
-            data: data
-        }
-
+    const postHandler = useCallback(async (data, url) => {
         try {
-            const posted = await request(`${API_URL}${url}`, "POST", {...dataFactored}, {
+            const posted = await request(`${API_URL}${url}`, "POST", {...data}, {
                 Authorization: `Basic ${code.hashed}`
             })
             successMessage(posted.messageRU)
@@ -39,7 +33,7 @@ export const usePost = (component, url) => {
         } catch (e) {
             errorMessage(e.messageRU)
         }
-    }, [code, request, API_URL, url, component, history, successMessage, errorMessage])
+    }, [code, request, API_URL, component, history, successMessage, errorMessage])
 
     return { postHandler, loading }
 }

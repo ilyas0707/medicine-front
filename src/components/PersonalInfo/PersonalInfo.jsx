@@ -3,16 +3,24 @@ import Styles from './PersonalInfo.module.css'
 
 export const PersonalInfo = ({ data }) => {
     const items = [
-        { data: data[0], heading: 'Общие сведения' },
-        { data: data[1], heading: 'Место проживания' },
-        { data: data[2], heading: 'Создан' },
+        { data: data[0], heading: 'Общие сведения', icon: 'border_color' },
+        { data: data[1], heading: 'Место проживания', icon: null },
+        { data: data[2], heading: 'Создан', icon: null },
     ]
     return (
         <div>
-            {items.map(({ data, heading }, i) => {
+            {items.map(({ data, heading, icon }, i) => {
                 return (
                     <div key={i}>
-                        <h3 className={Styles.heading}>{heading}</h3>
+                        <h3 className={Styles.heading}>
+                            {heading}
+                            {icon !== null ?
+                                <button className={Styles.button}>
+                                    <i className={`material-icons ${Styles.icon}`}>{ icon }</i>
+                                </button> :
+                                ''
+                            }
+                        </h3>
                         <div className={Styles.personalInfo}>
                             {data.map((obj) => {
                                 return Object.entries(obj).map((el) => {

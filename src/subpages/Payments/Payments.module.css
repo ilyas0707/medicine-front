@@ -1,0 +1,98 @@
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.title {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 10px 20px;
+    composes: textColor from "../../App.module.css";
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.title > span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 0 10px;
+    align-items: center;
+    padding: 10px 20px;
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.paid {
+    opacity: 0.5;
+}
+
+.end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.highlighted {
+    display: inline-block;
+    padding: 7px;
+    border-radius: 7px;
+    background: #fff;
+    text-align: center;
+}
+
+.pay {
+    display: flex;
+    align-items: center;
+}
+
+.pay > span {
+    text-align: center;
+}
+
+.button {
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+    display: inline-flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.icon {
+    font-size: 30px;
+}
+
+@media screen and (max-width: 600px) {
+    .title {
+        display: none;
+    }
+
+    .item {
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .item > span {
+        margin-bottom: 20px;
+    }
+
+    .highlighted {
+        margin-bottom: 20px;
+    }
+
+    .end {
+        justify-content: flex-start;
+    }
+}

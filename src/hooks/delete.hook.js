@@ -22,7 +22,7 @@ export const useDelete = (component) => {
     const history = useHistory()
 
     const deleteHandler = useCallback(async (url, id) => {
-        const pass = window.confirm("Вы уверенны?");
+        const pass = window.confirm("Вы уверенны?")
         if (pass) {
             try {
                 const deleted = await request(`${API_URL}${url}/${id}`, "DELETE", null, {

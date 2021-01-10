@@ -14,7 +14,7 @@ export const Patients = () => {
 
     const fuse = new Fuse(patientCards, {
         keys: [
-            'personalInfo.fullname'
+            'personalInfo.fullname.data'
         ]
     })
 
@@ -34,7 +34,7 @@ export const Patients = () => {
         <div className={Styles.patients}>
             <h2 className={Styles.heading}>
                 Пациенты
-                <NavLink className={Styles.button} to="/panel/patients/patientCreate">
+                <NavLink className={Styles.button} to="/panel/patients/create">
                     <i className={`material-icons ${Styles.icon}`}>add_circle_outline</i>
                 </NavLink>
             </h2>

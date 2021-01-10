@@ -26,43 +26,124 @@ import {
     CurrentTimeIndicator,
     ConfirmationDialog,
 } from '@devexpress/dx-react-scheduler-material-ui'
-import { indigo } from '@material-ui/core/colors'
 import { locale } from '../../hooks/locale.hook'
-// import { usePost } from '../../hooks/post.hook'
+import { useGet } from '../../hooks/get.hook'
+import { useUsers } from '../../hooks/users.hook'
+import { useMeetings } from '../../hooks/meetings.hook'
+import { usePost } from '../../hooks/post.hook'
+import { useDelete } from '../../hooks/delete.hook'
 
 export const Schedule = () => {
-    // const { postHandler, loading } = usePost('schedule', 'api/meetings/create')
-    const appointments = [
-        {
-            id: 0,
-            title: 'Музафар Юсуп',
-            members: [1],
-            roomId: 1,
-            startDate: new Date(2020, 11, 16, 15, 30),
-            endDate: new Date(2020, 11, 16, 16, 0),
-        },
-    ]
-    
-    const owners = [
-        {
-            text: 'Динара - Кардиолог',
-            id: 1,
-            color: indigo,
-        },
-    ]
-    
+    const meetingsGet = useGet('api/meeting/getAll')
+    const usersGet = useGet('api/user/getAll')
+    const { meetingsData } = useMeetings(meetingsGet.data.object)
+    const { usersData } = useUsers(usersGet.data.object)
+    const { postHandler } = usePost('schedule')
+    const { deleteHandler } = useDelete('schedule')
+
+    const doctors = usersData
+        ? usersData
+              .filter((element) => {
+                  return element.role === 'Врач'
+              })
+              .map(({ id, fullname }) => {
+                  return {
+                      id: id,
+                      text: fullname,
+                      color: '#F2D857',
+                  }
+              })
+        : [
+              {
+                  text: 'Загружаем...',
+                  id: 1,
+                  color: '#F2D857',
+              },
+          ]
+
+    const patients = usersData
+        ? usersData
+              .filter((element) => {
+                  return element.role === 'Пациент'
+              })
+              .map(({ id, fullname }) => {
+                  return {
+                      id: id,
+                      text: fullname,
+                      color: '#F2AF5C',
+                  }
+              })
+        : [
+              {
+                  text: 'Загружаем...',
+                  id: 1,
+                  color: '#F2AF5C',
+              },
+          ]
+
     const locations = [{ text: '103 каб.', id: 1 }]
 
+    const appointments = meetingsData
+
+    const Appointment = ({ children, style, ...restProps }) => {
+        return (
+            <Appointments.Appointment
+                {...restProps}
+                style={{
+                    ...style,
+                    backgroundColor: restProps.data.statusPaid === 1 ? '#66ff99' : '',
+                    borderRadius: '3px',
+                }}
+            >
+                {children}
+            </Appointments.Appointment>
+        )
+    }
+
+    const TextEditor = (props) => {
+        // eslint-disable-next-line react/destructuring-assignment
+        if (props.type === 'multilineTextEditor') {
+            return null
+        }
+        return <AppointmentForm.TextEditor {...props} />
+    }
+
+    const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
+        const onAmountToBePaidChange = (nextValue) => {
+            onFieldChange({ amountToBePaid: nextValue })
+        }
+
+        return (
+            <AppointmentForm.BasicLayout
+                appointmentData={appointmentData}
+                onFieldChange={onFieldChange}
+                {...restProps}
+            >
+                <AppointmentForm.Label text="Стоимость" type="title" />
+                <AppointmentForm.TextEditor
+                    type="numberEditor"
+                    value={appointmentData.amountToBePaid}
+                    onValueChange={onAmountToBePaidChange}
+                    placeholder="Стоимость"
+                />
+            </AppointmentForm.BasicLayout>
+        )
+    }
+
     const [meetings, setMeetings] = useState({
-        data: appointments
+        data: appointments,
     })
 
     const resources = [
         {
-            fieldName: 'members',
+            fieldName: 'doctorId',
             title: 'Врач',
-            instances: owners,
-            allowMultiple: true,
+            instances: doctors,
+        },
+        {
+            fieldName: 'patientId',
+            title: 'Пациент',
+            instances: patients,
         },
         {
             fieldName: 'roomId',
@@ -76,42 +157,58 @@ export const Schedule = () => {
             resourceName: 'roomId',
         },
         {
-            resourceName: 'members',
+            resourceName: 'doctorId',
         },
     ]
 
     const commitChanges = ({ added, changed, deleted }) => {
         setMeetings((state) => {
             let { data } = state
+
             if (added) {
                 const startingAddedId =
                     data.length > 0 ? data[data.length - 1].id + 1 : 0
-                data = [...data, { id: startingAddedId, ...added }]
-            }
-            if (changed) {
-                data = data.map((appointment) =>
-                    changed[appointment.id]
-                        ? { ...appointment, ...changed[appointment.id] }
-                        : appointment
+                data = [{ id: startingAddedId, ...added }]
+
+                const dataFactored = {
+                    dateFrom: new Date(data[0].startDate).toISOString(),
+                    dateTo: new Date(data[0].endDate).toISOString(),
+                    amountToBePaid: +data[0].amountToBePaid,
+                }
+
+                postHandler(
+                    dataFactored,
+                    `api/meeting/create/${data[0].patientId}/${data[0].doctorId}`
                 )
             }
+            // if (changed) {
+            //     data = data.map((appointment) =>
+            //         changed[appointment.id]
+            //             ? { ...appointment, ...changed[appointment.id] }
+            //             : appointment
+            //     )
+            // }
             if (deleted !== undefined) {
-                data = data.filter((appointment) => appointment.id !== deleted)
+                const deletedId = appointments.filter(
+                    (appointment) => appointment.id === deleted
+                )
+
+                deleteHandler('api/meeting/delete', deletedId[0].id)
             }
-
-            console.log(data);
-
-            // postHandler(data)
 
             return { data }
         })
+    }
+
+    if (usersGet.loading || meetingsGet.loading || doctors.length < 2) {
+        return <div className="loading"></div>
     }
 
     return (
         <div className={Styles.schedule}>
             <h2 className={Styles.heading}>Записи</h2>
             <Paper classes={{ root: Styles.paper }}>
-                <Scheduler locale={'ru'} data={meetings.data}>
+                <Scheduler locale={'ru'} data={appointments}>
                     <ViewState defaultCurrentViewName="work-week" />
                     <EditingState onCommitChanges={commitChanges} />
                     <GroupingState grouping={grouping} />
@@ -135,30 +232,32 @@ export const Schedule = () => {
                     <Toolbar locale={'ru'} />
                     <ViewSwitcher locale={'ru'} />
                     <DateNavigator />
-                    <Appointments data={meetings.data} />
-                    {/* <AllDayPanel messages={locale} /> */}
-                    <Resources
-                        data={resources}
-                        mainResourceName="members"
+                    <Appointments
+                        data={meetings.data}
+                        appointmentComponent={Appointment}
                     />
+                    {/* <AllDayPanel messages={locale} /> */}
+                    <Resources data={resources} mainResourceName="doctorId" />
 
                     <IntegratedGrouping />
                     <IntegratedEditing />
 
                     <ConfirmationDialog messages={locale} />
                     <AppointmentTooltip
-                        showOpenButton
+                        // showOpenButton
                         showCloseButton
                         showDeleteButton
                     />
-                    <AppointmentForm messages={locale} />
+                    <AppointmentForm
+                        messages={locale}
+                        basicLayoutComponent={BasicLayout}
+                        textEditorComponent={TextEditor}
+                    />
                     <GroupingPanel />
                     <DragDropProvider />
                     <CurrentTimeIndicator
                         shadePreviousCells={true}
-                        shadePreviousAppointments={
-                            true
-                        }
+                        shadePreviousAppointments={true}
                         updateInterval={10000}
                     />
                 </Scheduler>
