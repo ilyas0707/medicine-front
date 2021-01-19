@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useGet } from '../../hooks/get.hook'
 import { useMeetings } from '../../hooks/meetings.hook'
 import { usePost } from '../../hooks/post.hook'
 import { useDelete } from '../../hooks/delete.hook'
+import Fuse from "fuse.js"
 import Styles from './Payments.module.css'
 
 export const Payments = () => {
@@ -11,6 +12,8 @@ export const Payments = () => {
     const { paymentData } = useMeetings(meetingsGet.data.object)
     const { postHandler } = usePost('payments')
     const { deleteHandler } = useDelete('payments')
+
+    const [form, setForm] = useState("")
 
     const titles = ['Врач', 'Пациент', 'Время', 'К оплате']
 
@@ -34,14 +37,35 @@ export const Payments = () => {
             }
         })
     }
+
+    const fuse = new Fuse(paymentData, {
+        keys: [
+            'patientName'
+        ]
+    })
+
+    const results = fuse.search(form, { limit: 3 })
+    const paymentDataFiltered = form ? results.map(result => result.item) : paymentData
+
+    const changeHandler = ({ currentTarget = {} }) => {
+        const { value } = currentTarget
+        setForm(value)
+    }
     
     if (meetingsGet.loading) {
         return <div className="loading"></div>
     }
 
+    if (paymentData.length === 0) {
+        return <h2 className="empty">Пусто! Создайте запись для оплаты</h2>
+    }
+
     return (
-        <div className={Styles.payment}>
+        <div className={Styles.payments}>
             <h2 className={Styles.heading}>Оплата</h2>
+            <div className={Styles.search}>
+                <input type="text" className={Styles.input} name="fullname" onChange={changeHandler} placeholder="Поиск..." autoComplete="off" />
+            </div>
             <div className={Styles.block}>
                 <div className={Styles.title}>
                     {
@@ -55,7 +79,8 @@ export const Payments = () => {
                     }
                 </div>
                 {
-                    paymentData.sort((a, b) => {
+                    paymentDataFiltered.length !== 0 ?
+                    paymentDataFiltered.sort((a, b) => {
                         return (a.doctorId > b.doctorId) ? 1 : -1
                     }).sort(function(a, b){
                         return new Date(b.startDate) - new Date(a.startDate)
@@ -97,7 +122,7 @@ export const Payments = () => {
                                 </div>
                             </div>
                         )
-                    })
+                    }) : <h2 className="empty">Ничего не найдено!</h2>
                 }
             </div>
         </div>

@@ -43,7 +43,7 @@ export const Patients = () => {
             </div>
             <div className={Styles.block}>
                 {
-                    patientCardsFiltered ?
+                    patientCardsFiltered.length !== 0 ?
                     patientCardsFiltered.map(({ id, personalInfo }, i) => {
                         return (
                             personalInfo.map(({ fullname, birthDate, phoneNumber }) => {
@@ -59,7 +59,7 @@ export const Patients = () => {
                                 )
                             })
                         )
-                    }) : null
+                    }) : <h2 className="empty">Ничего не найдено!</h2>
                 }
             </div>
         </div>

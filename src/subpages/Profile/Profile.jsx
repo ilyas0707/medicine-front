@@ -38,7 +38,7 @@ export const Profile = () => {
         ]
     })
 
-    const results = fuse.search(form)
+    const results = fuse.search(form, { limit: 3 })
     const usersFiltered = form ? results.map(result => result.item) : usersData ? usersData : []
 
     const changeHandler = ({ currentTarget = {} }) => {
@@ -131,6 +131,7 @@ export const Profile = () => {
                             return (
                                 <div key={ i } className={`${Styles.block} ${opened === i ? Styles.active : ''}`}>
                                     {
+                                        element.data.length !== 0 ?
                                         element.data.map(({ id, fullname, username, role }, i) => {
                                             return (
                                                 <div key={ i } className={Styles.user}>
@@ -142,7 +143,7 @@ export const Profile = () => {
                                                     <button className={Styles.deleteButton} type="submit" onClick={() => {deleteHandler('api/user/delete', id)}}><i className={`material-icons ${Styles.delete}`}>delete</i></button>
                                                 </div>
                                             )
-                                        })
+                                        }) : <h2 className="empty">Ничего не найдено!</h2>
                                     }     
                                 </div>
                             )

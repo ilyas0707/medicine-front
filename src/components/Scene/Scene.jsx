@@ -10,6 +10,9 @@ import { Patients } from '../../subpages/Patients/Patients'
 import { PatientCardCreate } from '../../subpages/Patients/PatientCardCreate'
 import { PatientFragment } from '../../fragments/PatientFragment'
 import { Payments } from '../../subpages/Payments/Payments'
+import { Telemedicine } from '../../subpages/Telemedicine/Telemedicine'
+import { VideoFragment } from '../../fragments/VideoFragment'
+import { ChatFragment } from '../../fragments/ChatFragment'
 
 export const Scene = () => {
     return (
@@ -36,8 +39,13 @@ export const Scene = () => {
                 <Route path="/panel/payments" exact>
                     <Payments />
                 </Route>
-                <PatientFragment />
+                <Route path="/panel/telemedicine" exact>
+                    <Telemedicine />
+                </Route>
             </Switch>
+            <PatientFragment />
+            <VideoFragment />
+            <ChatFragment />
         </div>
     )
 }

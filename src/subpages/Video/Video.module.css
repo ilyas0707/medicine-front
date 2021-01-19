@@ -1,0 +1,31 @@
+.video {
+    height: 100%;
+    text-align: center;
+}
+
+.heading {
+    text-align: left;
+    height: 40px;
+    border-bottom: 2px solid #304269;
+    margin-bottom: 20px;
+}
+
+.picture {
+    height: calc(100% - 100px);
+}
+
+.picture > video {
+    width: 100%;
+    height: 100%;
+}
+
+.button {
+    height: 40px;
+    padding: 0 30px;
+    border-radius: 10px;
+    display: inline-grid;
+    place-items: center;
+    margin-top: 20px;
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+}

@@ -13,7 +13,7 @@ export const useUsers = (users) => {
             roles.includes('ROLE_PATIENT') ? 'Пациент' : ''
             : ''
         }
-    }) : ''
+    }) : []
 
     // const patients = users ? users
     // .filter(el => {return el.roles.includes('ROLE_PATIENT')})

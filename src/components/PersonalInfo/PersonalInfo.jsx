@@ -7,6 +7,7 @@ export const PersonalInfo = ({ data }) => {
         { data: data[1], heading: 'Место проживания', icon: null },
         { data: data[2], heading: 'Создан', icon: null },
     ]
+
     return (
         <div>
             {items.map(({ data, heading, icon }, i) => {

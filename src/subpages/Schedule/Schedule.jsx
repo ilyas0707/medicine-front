@@ -91,7 +91,8 @@ export const Schedule = () => {
                 {...restProps}
                 style={{
                     ...style,
-                    backgroundColor: restProps.data.statusPaid === 1 ? '#66ff99' : '',
+                    backgroundColor:
+                        restProps.data.statusPaid === 1 ? '#66ff99' : '',
                     borderRadius: '3px',
                 }}
             >
@@ -242,7 +243,10 @@ export const Schedule = () => {
                     <IntegratedGrouping />
                     <IntegratedEditing />
 
-                    <ConfirmationDialog messages={locale} />
+                    <ConfirmationDialog
+                        messages={locale}
+                        ignoreDelete
+                    />
                     <AppointmentTooltip
                         // showOpenButton
                         showCloseButton

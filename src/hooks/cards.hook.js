@@ -56,7 +56,9 @@ export const useCards = (cards) => {
                   },
               ]
 
-              return { id, personalInfo, personalAddress, createdByInfo }
+              const patientId = patient.id
+
+              return { id, patientId, personalInfo, personalAddress, createdByInfo }
           })
         : []
 
