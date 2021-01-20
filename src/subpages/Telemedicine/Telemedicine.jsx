@@ -40,6 +40,7 @@ export const Telemedicine = () => {
             </div>
             <div className={Styles.block}>
                 {
+                    usersDataFiltered.length !== 0 ?
                     usersDataFiltered.filter((el) => {
                         return el.fullname !== currentUser.fullname ? el : null
                     }).map(({ id, fullname }) => {
@@ -56,7 +57,10 @@ export const Telemedicine = () => {
                                 </div>
                             </div>
                         )
-                    })
+                    }) : <h2 className="empty">
+                             <i className={`material-icons search`}>search_off</i>
+                             Ничего не найдено!
+                         </h2>
                 }
             </div>
         </div>

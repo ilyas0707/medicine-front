@@ -47,3 +47,14 @@ button {
     animation: loading .5s linear infinite;
     cursor: default;
 }
+
+.empty {
+    display: flex;
+    align-items: center;
+    color: #304269;
+}
+
+.empty > .search {
+    font-size: 50px;
+    margin-right: 10px;
+}

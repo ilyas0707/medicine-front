@@ -1,42 +1,16 @@
 import React, { useState } from 'react'
 import { useGet } from '../../hooks/get.hook'
 import { useMeetings } from '../../hooks/meetings.hook'
-import { usePost } from '../../hooks/post.hook'
-import { useDelete } from '../../hooks/delete.hook'
 import Fuse from "fuse.js"
-import Styles from './Payments.module.css'
+import Styles from './Meetings.module.css'
 
-export const Payments = () => {
-    const meetingsGet = useGet('api/meeting/getAll')
-    const paymentsGet = useGet('api/payments/getAll')
-    const { paymentData } = useMeetings(meetingsGet.data.object)
-    const { postHandler } = usePost('payments')
-    const { deleteHandler } = useDelete('payments')
+export const Meetings = ({ patientId }) => {
+    const { data, loading } = useGet(`api/meeting/getByPatient/${patientId}`)
+    const { paymentData } = useMeetings(data.object)
 
     const [form, setForm] = useState("")
 
-    const titles = ['Врач', 'Пациент', 'Время', 'К оплате']
-
-    const createPayment = (id, name, amount) => {
-        const data = {
-            description: `${ name } оплатил за прием`,
-            amountPaid: amount
-        }
-
-        const pass = window.confirm("Вы уверенны?")
-        if (pass) {
-            postHandler(data, `api/payments/makeForMeeting/${ id }`)
-        }
-    }
-
-    const editPayment = (id) => {
-        // eslint-disable-next-line
-        paymentsGet.data.object.map((payment) => {
-            if (payment.parent.id === id) {
-                deleteHandler('api/payments/delete', payment.id)
-            }
-        })
-    }
+    const titles = ['Врач', 'Пациент', 'Время']
 
     const fuse = new Fuse(paymentData, {
         keys: [
@@ -51,8 +25,8 @@ export const Payments = () => {
         const { value } = currentTarget
         setForm(value)
     }
-    
-    if (meetingsGet.loading) {
+
+    if (loading) {
         return <div className="loading"></div>
     }
 
@@ -66,8 +40,8 @@ export const Payments = () => {
     }
 
     return (
-        <div className={Styles.payments}>
-            <h2 className={Styles.heading}>Оплата</h2>
+        <div className={Styles.meetings}>
+            <h2 className={Styles.heading}>Визиты</h2>
             <div className={Styles.search}>
                 <input type="text" className={Styles.input} name="fullname" onChange={changeHandler} placeholder="Поиск..." autoComplete="off" />
             </div>
@@ -91,11 +65,11 @@ export const Payments = () => {
                         return new Date(b.startDate) - new Date(a.startDate)
                     }).sort((a, b) => {
                         return (a.statusPaid > b.statusPaid) ? 1 : -1
-                    }).map(({ id, startDate, endDate, doctorName, patientName, amountToBePaid, statusPaid }, i) => {
+                    }).map(({ startDate, endDate, doctorName, patientName }, i) => {
                         let dateFrom = new Date(startDate)
                         let dateTo = new Date(endDate)
                         return (
-                            <div className={`${Styles.item} ${statusPaid === 1 ? Styles.paid : ''}`} key={ i }>
+                            <div className={Styles.item} key={ i }>
                                 <span>{ doctorName }</span>
                                 <span>{ patientName }</span>
                                 <div className={Styles.date}>
@@ -107,30 +81,9 @@ export const Payments = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div className={`${Styles.pay} ${Styles.end}`}>
-                                    <span>{ amountToBePaid } сом</span>
-                                    {
-                                        statusPaid === 1 ?
-                                        <button className={Styles.button} onClick={(e) => {
-                                            e.preventDefault()
-                                            editPayment(id)
-                                        }}>
-                                            <i className={`material-icons ${Styles.icon}`}>cancel</i>
-                                        </button> :
-                                        <button className={Styles.button} onClick={(e) => {
-                                            e.preventDefault()
-                                            createPayment(id, patientName, amountToBePaid)
-                                        }}>
-                                            <i className={`material-icons ${Styles.icon}`}>check_circle</i>
-                                        </button>
-                                    }
-                                </div>
                             </div>
                         )
-                    }) : <h2 className="empty">
-                             <i className={`material-icons search`}>search_off</i>
-                             Ничего не найдено!
-                         </h2>
+                    }) : <h2 className="empty">Ничего не найдено!</h2>
                 }
             </div>
         </div>

@@ -143,7 +143,10 @@ export const Profile = () => {
                                                     <button className={Styles.deleteButton} type="submit" onClick={() => {deleteHandler('api/user/delete', id)}}><i className={`material-icons ${Styles.delete}`}>delete</i></button>
                                                 </div>
                                             )
-                                        }) : <h2 className="empty">Ничего не найдено!</h2>
+                                        }) : <h2 className="empty">
+                                                 <i className={`material-icons search`}>search_off</i>
+                                                 Ничего не найдено!
+                                             </h2>
                                     }     
                                 </div>
                             )

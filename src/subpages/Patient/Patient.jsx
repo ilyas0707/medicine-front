@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Meetings } from '../../components/Meetings/Meetings'
 import { PersonalInfo } from '../../components/PersonalInfo/PersonalInfo'
 import { Report } from '../../components/Report/Report'
 import Styles from './Patient.module.css'
@@ -16,8 +17,8 @@ export const Patient = ({ data }) => {
 
     const tabs = [
         { component: <PersonalInfo data={ [data.personalInfo, data.personalAddress, data.createdByInfo] } /> },
-        { component: <Report patientId={ data.patientId } /> },
-        { data: '' },
+        { component: <Report patientId={ data.patientId } cardId={ data.id } /> },
+        { component: <Meetings patientId={ data.patientId } /> },
     ]
 
     return (

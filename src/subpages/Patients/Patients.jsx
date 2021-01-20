@@ -59,7 +59,10 @@ export const Patients = () => {
                                 )
                             })
                         )
-                    }) : <h2 className="empty">Ничего не найдено!</h2>
+                    }) : <h2 className="empty">
+                             <i className={`material-icons search`}>search_off</i>
+                             Ничего не найдено!
+                         </h2>
                 }
             </div>
         </div>
