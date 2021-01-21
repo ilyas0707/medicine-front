@@ -13,7 +13,7 @@ export const Chat = ({ data }) => {
     const sendMessage = () => {
         const currentDate = new Date()
         if (form !== '') {
-            setMessages([...messages, {"text": form, "time": `${currentDate.getHours()}:${currentDate.getMinutes()}` }])
+            setMessages([...messages, {"text": form, "time": `${currentDate.getHours()}:${(currentDate.getMinutes()<10?'0':'') + currentDate.getMinutes()}` }])
         } else {
             setMessages([...messages])
         }
