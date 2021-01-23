@@ -20,6 +20,11 @@ export const Report = ({ patientId, cardId }) => {
         { type: 'text', name: 'title', label: 'Наименование' },
     ]
 
+    const buttons = [
+        { icon: 'border_color', func: openModal },
+        { icon: 'print', func: () => console.log('print') },
+    ]
+
     if (loading) {
         return <div className="loading"></div>
     }
@@ -28,11 +33,19 @@ export const Report = ({ patientId, cardId }) => {
         <div className={Styles.report}>
             <h3 className={Styles.heading}>
                 Диагнозы
-                <button className={Styles.button} onClick={() =>
-                    openModal()
-                }>
-                    <i className={`material-icons ${Styles.icon}`}>border_color</i>
-                </button>
+                <div className={Styles.buttons}>
+                    {
+                        buttons.map(({ icon, func }, i) => {
+                            return (
+                                <button key={ i } className={Styles.button} onClick={() =>
+                                    func()
+                                }>
+                                    <i className={`material-icons ${Styles.icon}`}>{ icon }</i>
+                                </button>
+                            )
+                        })
+                    }
+                </div>
             </h3>
             {
                 reportData.length === 0 ?

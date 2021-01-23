@@ -9,7 +9,7 @@ export const VideoFragment = () => {
     const { usersData } = useUsers(data.object)
 
     if (loading) {
-        return <div></div>
+        return <div className="loading"></div>
     }
 
     return (

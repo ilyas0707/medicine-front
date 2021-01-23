@@ -1,6 +1,18 @@
 .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 30px;
     font-size: 30px;
+}
+
+.button {
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+    display: inline-flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .block {

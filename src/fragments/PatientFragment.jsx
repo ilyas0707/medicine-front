@@ -1,5 +1,5 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React, { Fragment } from 'react'
+import { Route } from 'react-router-dom'
 import { useGet } from '../hooks/get.hook'
 import { useCards } from '../hooks/cards.hook'
 import { Patient } from '../subpages/Patient/Patient'
@@ -9,11 +9,11 @@ export const PatientFragment = () => {
     const { patientCards } = useCards(data.object)
 
     if (loading) {
-        return <div></div>
+        return <div className="loading"></div>
     }
 
     return (
-        <Switch>
+        <Fragment>
             {
                 patientCards.map(({ id }, i) => {
                     return (
@@ -23,6 +23,6 @@ export const PatientFragment = () => {
                     )
                 })
             }
-        </Switch>
+        </Fragment>
     )
 }

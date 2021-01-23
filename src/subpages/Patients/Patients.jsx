@@ -46,18 +46,14 @@ export const Patients = () => {
                     patientCardsFiltered.length !== 0 ?
                     patientCardsFiltered.map(({ id, personalInfo }, i) => {
                         return (
-                            personalInfo.map(({ fullname, birthDate, phoneNumber }) => {
-                                return (
-                                    <NavLink key={ i } to={`/panel/patients/${id}`} className={Styles.patient}>
-                                        <div className={Styles.link}>
-                                            <span><b>Полное имя:</b> { fullname.data }</span>
-                                            <span><b>Дата рождения:</b> { birthDate.data }</span>
-                                            <span><b>Номер телефона:</b> { phoneNumber.data }</span>
-                                        </div>
-                                        <span className={Styles.flag}>{ id }</span>
-                                    </NavLink>
-                                )
-                            })
+                            <NavLink key={ i } to={`/panel/patients/${id}`} className={Styles.patient}>
+                                <div className={Styles.link}>
+                                    <span><b>{personalInfo[0].label}:</b> { personalInfo[0].data }</span>
+                                    <span><b>{personalInfo[4].label}:</b> { personalInfo[4].data }</span>
+                                    <span><b>{personalInfo[3].label}:</b> { personalInfo[3].data }</span>
+                                </div>
+                                <span className={Styles.flag}>{ id }</span>
+                            </NavLink>
                         )
                     }) : <h2 className="empty">
                              <i className={`material-icons search`}>search_off</i>

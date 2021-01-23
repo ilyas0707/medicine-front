@@ -4,61 +4,79 @@ export const useCards = (cards) => {
               const dateFormatted = new Date(patient.birthDate)
               const personalInfo = [
                   {
-                      fullname: { data: patient.fullname, label: 'Полное имя' },
-                      username: { data: patient.username, label: 'Логин' },
-                      email: {
-                          data: patient.email,
-                          label: 'Электронная почта',
-                      },
-                      phoneNumber: {
-                          data: patient.phoneNumber,
-                          label: 'Сотовый телефон',
-                      },
-                      birthDate: {
-                          data: `${dateFormatted.getDate()}/${
-                              dateFormatted.getMonth() + 1
-                          }/${dateFormatted.getFullYear()}`,
-                          label: 'Дата рождения',
-                      },
-                      gender: {
-                          data:
-                              patient.gender === 'MALE'
-                                  ? 'Мужской'
-                                  : patient.gender === 'FEMALE'
-                                  ? 'Женский'
-                                  : '',
-                          label: 'Пол',
-                      },
+                      data: patient.fullname,
+                      label: 'Полное имя',
+                      name: 'fullname',
+                  },
+                  { data: patient.username, label: 'Логин', name: 'username' },
+                  {
+                      data: patient.email,
+                      label: 'Электронная почта',
+                      name: 'email',
+                  },
+                  {
+                      data: patient.phoneNumber,
+                      label: 'Сотовый телефон',
+                      name: 'phoneNumber',
+                  },
+                  {
+                      data: `${dateFormatted.getDate()}/${
+                          dateFormatted.getMonth() + 1
+                      }/${dateFormatted.getFullYear()}`,
+                      label: 'Дата рождения',
+                      name: 'birthDate',
+                  },
+                  {
+                      data:
+                          patient.gender === 'MALE'
+                              ? 'Мужской'
+                              : patient.gender === 'FEMALE'
+                              ? 'Женский'
+                              : '',
+                      label: 'Пол',
+                      name: 'gender',
                   },
               ]
 
               const personalAddress = [
+                  { data: address.district, label: 'Район', name: 'district' },
+                  { data: address.city, label: 'Город', name: 'city' },
                   {
-                      district: { data: address.district, label: 'Район' },
-                      city: { data: address.city, label: 'Город' },
-                      inhabitedLocality: {
-                          data: address.inhabitedLocality,
-                          label: 'Населенный пункт',
-                      },
-                      street: { data: address.street, label: 'Улица' },
-                      house: { data: address.house, label: 'Дом' },
-                      apartment: { data: address.apartment, label: 'Квартира' },
-                      homeTelephone: {
-                          data: address.homeTelephone,
-                          label: 'Дом. телефон',
-                      },
+                      data: address.inhabitedLocality,
+                      label: 'Населенный пункт',
+                      name: 'inhabitedLocality',
+                  },
+                  { data: address.street, label: 'Улица', name: 'street' },
+                  { data: address.house, label: 'Дом', name: 'house' },
+                  {
+                      data: address.apartment,
+                      label: 'Квартира',
+                      name: 'apartment',
+                  },
+                  {
+                      data: address.homeTelephone,
+                      label: 'Дом. телефон',
+                      name: 'homeTelephone',
                   },
               ]
 
               const createdByInfo = [
                   {
-                      fullname: { data: createdBy.fullname, label: 'Создан' },
+                      data: createdBy.fullname,
+                      label: 'Создан',
+                      name: 'fullname',
                   },
               ]
 
               const patientId = patient.id
 
-              return { id, patientId, personalInfo, personalAddress, createdByInfo }
+              return {
+                  id,
+                  patientId,
+                  personalInfo,
+                  personalAddress,
+                  createdByInfo,
+              }
           })
         : []
 

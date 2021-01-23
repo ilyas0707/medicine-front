@@ -12,6 +12,10 @@ export const Meetings = ({ patientId }) => {
 
     const titles = ['Врач', 'Пациент', 'Время']
 
+    const buttons = [
+        { icon: 'print', func: () => console.log('print') },
+    ]
+
     const fuse = new Fuse(paymentData, {
         keys: [
             'patientName'
@@ -30,18 +34,24 @@ export const Meetings = ({ patientId }) => {
         return <div className="loading"></div>
     }
 
-    if (paymentData.length === 0) {
-        return (
-            <h2 className="empty">
-                <i className={`material-icons search`}>cancel_presentation</i>
-                Пусто! Создайте запись для оплаты
-            </h2>
-        )
-    }
-
     return (
         <div className={Styles.meetings}>
-            <h2 className={Styles.heading}>Визиты</h2>
+            <h3 className={Styles.heading}>
+                Визиты
+                <div className={Styles.buttons}>
+                    {
+                        buttons.map(({ icon, func }, i) => {
+                            return (
+                                <button key={ i } className={Styles.button} onClick={() =>
+                                    func()
+                                }>
+                                    <i className={`material-icons ${Styles.icon}`}>{ icon }</i>
+                                </button>
+                            )
+                        })
+                    }
+                </div>
+            </h3>
             <div className={Styles.search}>
                 <input type="text" className={Styles.input} name="fullname" onChange={changeHandler} placeholder="Поиск..." autoComplete="off" />
             </div>
@@ -50,7 +60,7 @@ export const Meetings = ({ patientId }) => {
                     {
                         titles.map((title, i) => {
                             return (
-                                <span key={ i } className={title === 'К оплате' ? Styles.end : ''}>
+                                <span key={ i } className={title === 'Время' ? Styles.end : ''}>
                                     { title }
                                 </span>
                             )
@@ -58,6 +68,11 @@ export const Meetings = ({ patientId }) => {
                     }
                 </div>
                 {
+                    paymentData.length === 0 ? 
+                    <h2 className="empty">
+                        <i className={`material-icons search`}>cancel_presentation</i>
+                        Пусто! Активных визитов нет
+                    </h2> :
                     paymentDataFiltered.length !== 0 ?
                     paymentDataFiltered.sort((a, b) => {
                         return (a.doctorId > b.doctorId) ? 1 : -1
@@ -72,7 +87,7 @@ export const Meetings = ({ patientId }) => {
                             <div className={Styles.item} key={ i }>
                                 <span>{ doctorName }</span>
                                 <span>{ patientName }</span>
-                                <div className={Styles.date}>
+                                <div className={`${Styles.date} ${Styles.end}`}>
                                     <div className={Styles.highlighted}>
                                         <span>{ `${ dateFrom.getDate() }/${ dateFrom.getMonth() + 1 }/${ dateFrom.getFullYear() }` }, </span>
                                         <span>
@@ -83,7 +98,10 @@ export const Meetings = ({ patientId }) => {
                                 </div>
                             </div>
                         )
-                    }) : <h2 className="empty">Ничего не найдено!</h2>
+                    }) : <h2 className="empty">
+                             <i className={`material-icons search`}>search_off</i>
+                             Ничего не найдено!
+                         </h2>
                 }
             </div>
         </div>

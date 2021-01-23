@@ -47,10 +47,6 @@
     font-size: 20px;
 }
 
-.item:last-child {
-    margin-bottom: 0;
-}
-
 .icon {
     margin-right: 10px;
     composes: textColor from "../../App.module.css";
@@ -195,6 +191,31 @@
 .selected {
     composes: backgroundColor from "../../App.module.css";
     composes: textColor from "../../App.module.css";
+}
+
+.editButton {
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+    display: inline-flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.editButton:nth-child(2) {
+    margin-left: 10px;
+}
+
+.editButton:nth-child(3) {
+    margin-left: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.editIcon {
+    font-size: 20px;
 }
 
 @media screen and (max-width: 1200px) {

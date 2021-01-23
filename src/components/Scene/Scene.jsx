@@ -33,6 +33,9 @@ export const Scene = () => {
                 <Route path="/panel/patients" exact>
                     <Patients />
                 </Route>
+                <Route path="/panel/patients/:id" exact>
+                    <PatientFragment />
+                </Route>
                 <Route path="/panel/patients/create" exact>
                     <PatientCardCreate />
                 </Route>
@@ -42,10 +45,13 @@ export const Scene = () => {
                 <Route path="/panel/telemedicine" exact>
                     <Telemedicine />
                 </Route>
+                <Route path="/panel/telemedicine/video/:id" exact>
+                    <VideoFragment />
+                </Route>
+                <Route path="/panel/telemedicine/chat/:id" exact>
+                    <ChatFragment />
+                </Route>
             </Switch>
-            <PatientFragment />
-            <VideoFragment />
-            <ChatFragment />
         </div>
     )
 }

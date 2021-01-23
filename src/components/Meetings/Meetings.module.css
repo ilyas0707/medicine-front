@@ -7,6 +7,23 @@
     align-items: center;
 }
 
+.button {
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+    display: inline-flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.button:nth-child(2) {
+    margin-left: 10px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
 .search {
     margin-bottom: 30px;
 }
@@ -79,18 +96,9 @@
     text-align: center;
 }
 
-.button {
-    composes: backgroundColor from "../../App.module.css";
-    composes: textColor from "../../App.module.css";
-    display: inline-flex;
-    align-items: center;
-    border-radius: 10px;
-    padding: 0;
-    margin-left: 10px;
-}
-
-.icon {
-    font-size: 30px;
+.end {
+    display: flex;
+    justify-content: flex-end;
 }
 
 @media screen and (max-width: 600px) {
@@ -99,7 +107,7 @@
     }
 
     .item {
-        padding: 20px 0;
+        padding: 20px 0 0 0;
         display: flex;
         flex-direction: column;
     }

@@ -29,3 +29,15 @@
     composes: backgroundColor from "../../App.module.css";
     composes: textColor from "../../App.module.css";
 }
+
+.download {
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 10px;
+    display: inline-grid;
+    place-items: center;
+    margin-top: 20px;
+    margin-left: 10px;
+    composes: backgroundColor from "../../App.module.css";
+    composes: textColor from "../../App.module.css";
+}

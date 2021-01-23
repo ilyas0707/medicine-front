@@ -10,7 +10,7 @@ export const Payments = () => {
     const meetingsGet = useGet('api/meeting/getAll')
     const paymentsGet = useGet('api/payments/getAll')
     const { paymentData } = useMeetings(meetingsGet.data.object)
-    const { postHandler } = usePost('payments')
+    const { postHandler } = usePost('/', 'panel/payments')
     const { deleteHandler } = useDelete('payments')
 
     const [form, setForm] = useState("")
@@ -56,15 +56,6 @@ export const Payments = () => {
         return <div className="loading"></div>
     }
 
-    if (paymentData.length === 0) {
-        return (
-            <h2 className="empty">
-                <i className={`material-icons search`}>cancel_presentation</i>
-                Пусто! Создайте запись для оплаты
-            </h2>
-        )
-    }
-
     return (
         <div className={Styles.payments}>
             <h2 className={Styles.heading}>Оплата</h2>
@@ -84,6 +75,11 @@ export const Payments = () => {
                     }
                 </div>
                 {
+                    paymentData.length === 0 ? 
+                    <h2 className="empty">
+                        <i className={`material-icons search`}>cancel_presentation</i>
+                        Пусто! Создайте запись для оплаты
+                    </h2> :
                     paymentDataFiltered.length !== 0 ?
                     paymentDataFiltered.sort((a, b) => {
                         return (a.doctorId > b.doctorId) ? 1 : -1

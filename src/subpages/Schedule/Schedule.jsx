@@ -33,12 +33,14 @@ import { useMeetings } from '../../hooks/meetings.hook'
 import { usePost } from '../../hooks/post.hook'
 import { useDelete } from '../../hooks/delete.hook'
 
+import { makeStyles, fade } from '@material-ui/core/styles';
+
 export const Schedule = () => {
     const meetingsGet = useGet('api/meeting/getAll')
     const usersGet = useGet('api/user/getAll')
     const { meetingsData } = useMeetings(meetingsGet.data.object)
     const { usersData } = useUsers(usersGet.data.object)
-    const { postHandler } = usePost('schedule')
+    const { postHandler } = usePost('/', 'panel/schedule')
     const { deleteHandler } = useDelete('schedule')
 
     const doctors = usersData
@@ -131,6 +133,31 @@ export const Schedule = () => {
         )
     }
 
+    const useGroupingStyles = (group) => {
+        return makeStyles(() => ({
+            headerCell: {
+                backgroundColor: fade(group.id === 1 ? '#fff' : '#91f1d1', 0.4),
+                '&:hover': {
+                    backgroundColor: fade(group.id === 1 ? '#fff' : '#91f1d1', 0.2),
+                },
+                '&:focus': {
+                    backgroundColor: fade(group.id === 1 ? '#fff' : '#91f1d1', 0.2),
+                },
+            },
+        }))()
+    }
+
+    const GroupingPanelCell = React.memo(({ group, ...restProps }) => {
+        const classes = useGroupingStyles(group)
+        return (
+            <GroupingPanel.Cell
+                className={classes.headerCell}
+                group={group}
+                {...restProps}
+            ></GroupingPanel.Cell>
+        )
+    })
+
     const [meetings, setMeetings] = useState({
         data: appointments,
     })
@@ -153,10 +180,14 @@ export const Schedule = () => {
         },
     ]
 
+    const groupOrientation = () => {
+        return 'Vertical Orientation'.split(' ')[0]
+    }
+
     const grouping = [
-        {
-            resourceName: 'roomId',
-        },
+        // {
+        //     resourceName: 'roomId',
+        // },
         {
             resourceName: 'doctorId',
         },
@@ -212,7 +243,10 @@ export const Schedule = () => {
                 <Scheduler locale={'ru'} data={appointments}>
                     <ViewState defaultCurrentViewName="work-week" />
                     <EditingState onCommitChanges={commitChanges} />
-                    <GroupingState grouping={grouping} />
+                    <GroupingState
+                        grouping={grouping}
+                        groupOrientation={groupOrientation}
+                    />
 
                     <DayView
                         displayName="День"
@@ -227,6 +261,7 @@ export const Schedule = () => {
                         excludedDays={[0, 6]}
                         startDayHour={8}
                         endDayHour={19}
+                        // name="Vertical Orientation"
                     />
                     <MonthView displayName="Месяц" />
 
@@ -243,10 +278,7 @@ export const Schedule = () => {
                     <IntegratedGrouping />
                     <IntegratedEditing />
 
-                    <ConfirmationDialog
-                        messages={locale}
-                        ignoreDelete
-                    />
+                    <ConfirmationDialog messages={locale} ignoreDelete />
                     <AppointmentTooltip
                         // showOpenButton
                         showCloseButton
@@ -257,7 +289,7 @@ export const Schedule = () => {
                         basicLayoutComponent={BasicLayout}
                         textEditorComponent={TextEditor}
                     />
-                    <GroupingPanel />
+                    <GroupingPanel cellComponent={GroupingPanelCell} />
                     <DragDropProvider />
                     <CurrentTimeIndicator
                         shadePreviousCells={true}

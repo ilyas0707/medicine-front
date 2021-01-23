@@ -8,7 +8,7 @@ import { useError } from "./error.hook"
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
-export const usePost = (component) => {
+export const usePost = (from, to) => {
     toast.configure({
         position: 'top-center',
         autoClose: 3000,
@@ -28,12 +28,12 @@ export const usePost = (component) => {
             })
             successMessage(posted.messageRU)
     
-            history.push('/')
-            history.push(`panel/${component}`)
+            history.push(from)
+            history.push(to)
         } catch (e) {
             errorMessage(e.messageRU)
         }
-    }, [code, request, API_URL, component, history, successMessage, errorMessage])
+    }, [code, request, API_URL, from, to, history, successMessage, errorMessage])
 
     return { postHandler, loading }
 }

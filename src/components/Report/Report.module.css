@@ -16,6 +16,10 @@
     composes: textColor from "../../App.module.css";
 }
 
+.button:nth-child(2) {
+    margin-left: 10px;
+}
+
 .icon {
     font-size: 20px;
 }

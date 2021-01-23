@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { Meetings } from '../../components/Meetings/Meetings'
 import { PersonalInfo } from '../../components/PersonalInfo/PersonalInfo'
 import { Report } from '../../components/Report/Report'
+import { useDelete } from '../../hooks/delete.hook'
 import Styles from './Patient.module.css'
 
 export const Patient = ({ data }) => {
+    const { deleteHandler } = useDelete(`patients`)
     const [opened, setOpened] = useState(0)
 
     const openTab = (id) => {
@@ -16,14 +18,19 @@ export const Patient = ({ data }) => {
     ]
 
     const tabs = [
-        { component: <PersonalInfo data={ [data.personalInfo, data.personalAddress, data.createdByInfo] } /> },
+        { component: <PersonalInfo cardId={ data.id } data={ [data.personalInfo, data.personalAddress, data.createdByInfo] } /> },
         { component: <Report patientId={ data.patientId } cardId={ data.id } /> },
         { component: <Meetings patientId={ data.patientId } /> },
     ]
 
     return (
         <div className={Styles.patient}>
-            <h2 className={Styles.heading}>Данные пациента</h2>
+            <h2 className={Styles.heading}>
+                Данные пациента
+                <button className={Styles.button} onClick={() => {deleteHandler('api/patientController/deletePatientsCard', data.id)}}>
+                    <i className={`material-icons ${Styles.icon}`}>delete</i>
+                </button>
+            </h2>
             <div className={Styles.tabs}>
                 {
                     links.map(({name}, i) => {

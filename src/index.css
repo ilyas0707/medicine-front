@@ -49,9 +49,12 @@ button {
 }
 
 .empty {
+    margin-top: 40px;
+    width: 100%;
     display: flex;
     align-items: center;
-    color: #304269;
+    justify-content: center;
+    color: #ccc;
 }
 
 .empty > .search {
