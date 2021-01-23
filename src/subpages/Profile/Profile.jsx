@@ -22,18 +22,18 @@ export const Profile = () => {
     const [form, setForm] = useState("")
     const [opened, setOpened] = useState(0)
 
-    const local = JSON.parse(localStorage.getItem('profileStorage'))
+    // const local = JSON.parse(localStorage.getItem('profileStorage'))
 
-    const initialState = () => {
-        let obj = {
-            email: local.data.object.email,
-            phoneNumber: local.data.object.phoneNumber,
-        }
+    // const initialState = () => {
+    //     let obj = {
+    //         email: local.data.object.email,
+    //         phoneNumber: local.data.object.phoneNumber,
+    //     }
 
-        return obj
-    }
+    //     return obj
+    // }
 
-    const [edited, setEdited] = useState(initialState())
+    // const [edited, setEdited] = useState(initialState())
 
     const fields = [
         { label: user.fullname, icon: '', editable: false },
@@ -81,24 +81,24 @@ export const Profile = () => {
     ]
 
     // const { postHandler } = usePost('/', `panel/profile`)
-    const [edit, setEdit] = useState(false)
+    // const [edit, setEdit] = useState(false)
 
-    const editPersonalInfo = () => {
-        setEdit(!edit)
-    }
+    // const editPersonalInfo = () => {
+    //     setEdit(!edit)
+    // }
 
     // const savePersonalInfo = () => {
     //     postHandler(edited, 'api/patientController/updatePatientCard')
     // }
 
-    const editButtons = [
-        { icon: 'save', func: () => {console.log('save')} },
-        { icon: 'border_color', func: editPersonalInfo },
-    ]
+    // const editButtons = [
+    //     { icon: 'save', func: () => {console.log('save')} },
+    //     { icon: 'border_color', func: editPersonalInfo },
+    // ]
 
-    const editHandler = e => {
-        setEdited({ ...edited, [e.target.name]: e.target.value })
-    }
+    // const editHandler = e => {
+    //     setEdited({ ...edited, [e.target.name]: e.target.value })
+    // }
 
     return (
         <div className={Styles.main}>
@@ -116,7 +116,7 @@ export const Profile = () => {
                                     return (
                                         <li key={ i } className={Styles.item}>
                                             <i style={icon === '' ? {display: 'none'} : {}} className={`material-icons ${Styles.icon}`}>{ icon }</i>
-                                            {
+                                            {/* {
                                                 edit && editable ?
                                                 <input
                                                     type="text"
@@ -128,14 +128,15 @@ export const Profile = () => {
                                                     onChange={editHandler}
                                                 /> :
                                                 label
-                                            }
+                                            } */}
+                                            { label }
                                         </li>
                                     )
                                 })
                             }
                         </ul>
                     </div>
-                    <div className={Styles.editButtons}>
+                    {/* <div className={Styles.editButtons}>
                         {
                             editButtons.map(({ icon, func }, i) => {
                                 return (
@@ -147,7 +148,7 @@ export const Profile = () => {
                                 )
                             })
                         }
-                    </div>
+                    </div> */}
                 </div>
                 <div className={Styles.buttons}>
                     {
