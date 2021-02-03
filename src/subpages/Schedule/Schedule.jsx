@@ -236,6 +236,8 @@ export const Schedule = () => {
         return <div className="loading"></div>
     }
 
+    console.log(appointments);
+
     return (
         <div className={Styles.schedule}>
             <h2 className={Styles.heading}>Записи</h2>

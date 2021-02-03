@@ -12,8 +12,8 @@ export const useMeetings = (meetings) => {
             patientId: userPatient.id,
             roomId: 1,
             statusPaid: statusPaid,
-            startDate: new Date(startDate.getFullYear() - 1, startDate.getMonth() === 0 ? 12 : startDate.getMonth(), startDate.getDate(), startDate.getHours() + 6, startDate.getMinutes()),
-            endDate: new Date(endDate.getFullYear() - 1, endDate.getMonth() === 0 ? 12 : endDate.getMonth(), endDate.getDate(), endDate.getHours() + 6, endDate.getMinutes()),
+            startDate: new Date(startDate.getFullYear(), startDate.getMonth() === 0 ? 12 : startDate.getMonth(), startDate.getDate(), startDate.getHours() + 6, startDate.getMinutes()).toISOString(),
+            endDate: new Date(endDate.getFullYear(), endDate.getMonth() === 0 ? 12 : endDate.getMonth(), endDate.getDate(), endDate.getHours() + 6, endDate.getMinutes()).toISOString(),
         }
     }) : []
 
