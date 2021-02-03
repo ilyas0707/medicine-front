@@ -12,8 +12,6 @@ export const Telemedicine = () => {
     const { data, loading } = useGet('api/user/getAll')
     const { usersData } = useUsers(data.object)
 
-    console.log(usersData);
-
     const [form, setForm] = useState("")
 
     const fuse = new Fuse(usersData, {
