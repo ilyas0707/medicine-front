@@ -3,7 +3,7 @@ Created by: <b>Ilias Iangurazov</b>
 
 OMS - современная платформа для управления медицинским центром
 
-<img src='https://raw.githubusercontent.com/ilyas0707/oms-page/main/src/assets/images/screenshots/screen_profile.png' alt="screenshot_1">
+![alt text](https://github.com/ilyas0707/oms-page/blob/main/src/assets/images/screenshots/screen_profile.png?raw=true)
 <img src='https://raw.githubusercontent.com/ilyas0707/oms-page/main/src/assets/images/screenshots/screen_chat.png?token=GHSAT0AAAAAAB3RRW24Y2GYN4JSPOHYZOYOY4YU2GQ' alt="screenshot_2">
 <img src='https://raw.githubusercontent.com/ilyas0707/oms-page/main/src/assets/images/screenshots/screen_contact.png?token=GHSAT0AAAAAAB3RRW244HBNGMTKW33ANPSIY4YU22Q' alt="screenshot_3">
 <img src='https://raw.githubusercontent.com/ilyas0707/oms-page/main/src/assets/images/screenshots/screen_medcard.png?token=GHSAT0AAAAAAB3RRW24U3QVYJRB4LAKQXNAY4YU3MA' alt="screenshot_4">
